@@ -6,16 +6,17 @@ terraform {
     }
   }
   required_version = ">= 1.7.5"
-}
 
-variable "aws_profile" {
-  type    = string
-  default = "default"
+  cloud {
+    organization = "reizt"
+    workspaces {
+      name = "sveltask-aws"
+    }
+  }
 }
 
 provider "aws" {
-  region  = "ap-northeast-1"
-  profile = var.aws_profile
+  region = "ap-northeast-1"
   default_tags {
     tags = {
       application = "sveltask"
@@ -26,8 +27,7 @@ provider "aws" {
 provider "aws" {
   alias = "us-east-1"
 
-  region  = "us-east-1"
-  profile = var.aws_profile
+  region = "us-east-1"
   default_tags {
     tags = {
       application = "sveltask"
